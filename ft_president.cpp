@@ -172,6 +172,7 @@ class France
 			{
 				eqClass<std::string, int>	region;
 				getline(input, line);
+				if (line.back() == 13)	line.erase(--line.end());
 				std::string::size_type	idxEndName = line.find(" : ", 0);
 				std::string::size_type	idxBeginPib = idxEndName + 3;
 				std::string::size_type	idxEndPib = line.find(" : ", idxBeginPib);
@@ -256,6 +257,7 @@ void	bruteFrance(const France &france, int nbRegionToJoin, std::pair<France, dou
 	if (!nbRegionToJoin)
 	{
 		double newStandDev = france.variance();
+		//std::cout << newStandDev << '\n';
 		if (newStandDev < bestStandDev.second)
 		{
 			bestStandDev.second = newStandDev;
@@ -315,11 +317,11 @@ int	main(int ac, char **av)
 		output << "Error\n";
 		return 0;
 	}
-	std::pair<France, double>	result(france, 9999999);
+	std::pair<France, double>	result(france, 0xfffffffff);
 	std::set<std::set<std::set<std::string> > >	known;
 	//std::cout << france;
 	bruteFrance(france, france.regions.size() - nbRegionNeeded, result, known);
-	if (result.second < 9999999)
+	if (result.second < 0xfffffffff)
 		result.first.displayResult(output);
 	else
 		output << "Error\n";
