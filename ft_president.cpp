@@ -251,7 +251,7 @@ std::ostream &operator<<(std::ostream &o, const France &f)
 	return o;
 }
 
-void	bruteFrance(France france, int nbRegionToJoin, std::pair<France, double> &bestStandDev, std::set<std::set<std::set<std::string> > > &known)
+void	bruteFrance(const France &france, int nbRegionToJoin, std::pair<France, double> &bestStandDev, std::set<std::set<std::set<std::string> > > &known)
 {
 	if (!nbRegionToJoin)
 	{
@@ -263,8 +263,8 @@ void	bruteFrance(France france, int nbRegionToJoin, std::pair<France, double> &b
 		}
 	}
 	else {
-		for (France::iterator it1 = france.begin(); it1 != france.end() - 1; ++it1) {
-			for (France::iterator it2 = it1 + 1; it2 != france.end(); ++it2) {
+		for (France::const_iterator it1 = france.begin(); it1 != france.end() - 1; ++it1) {
+			for (France::const_iterator it2 = it1 + 1; it2 != france.end(); ++it2) {
 				if (it1->findInBordering(*it2))
 				{
 					std::pair<std::set<std::set<std::set<std::string> > >::iterator, bool> secure;
